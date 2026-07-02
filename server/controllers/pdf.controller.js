@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import Pdf from "../models/Pdf.js";
+import Pdf from "../models/pdf.js";
 import PdfChunk from "../models/PdfChunk.js";
 
 import { extractPdfText } from "../service/pdf.service.js";

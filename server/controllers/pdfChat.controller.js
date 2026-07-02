@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Pdf from "../models/Pdf.js";
+import Pdf from "../models/pdf.js";
 import { askQuestion } from "../service/rag.service.js";
 
 export const chatWithPdf = async (req, res) => {
