@@ -102,18 +102,10 @@ const PdfViewer = ({ selectedPdf }) => {
       <div className="flex-1 overflow-auto flex justify-center bg-slate-900 p-5">
 
         <Document
-          file={`http://localhost:5000/uploads/${selectedPdf.filename}`}
+          file={`${import.meta.env.VITE_API_URL}/uploads/${selectedPdf.filename}`}
           onLoadSuccess={onDocumentLoadSuccess}
-          loading={
-            <p className="text-white">
-              Loading PDF...
-            </p>
-          }
-          error={
-            <p className="text-red-400">
-              Failed to load PDF.
-            </p>
-          }
+          loading={<p className="text-white">Loading PDF...</p>}
+          error={<p className="text-red-400">Failed to load PDF.</p>}
         >
           <Page
             pageNumber={pageNumber}
