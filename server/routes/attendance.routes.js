@@ -3,50 +3,50 @@ import express from "express";
 import authMiddleware from "../middleware/auth.middleware.js";
 
 import {
-  generateRoadmap,
-  saveRoadmap,
-  getRoadmaps,
-  getRoadmap,
-  deleteRoadmap,
-  toggleTask,
-} from "../controllers/roadmap.controller.js";
-
+  addSubject,
+  getAttendance,
+  updateSubject,
+  deleteSubject,
+  markPresent,
+  markAbsent,
+} from "../controllers/attendance.controller.js";
 
 const router = express.Router();
 
 router.post(
   "/",
   authMiddleware,
-  saveRoadmap
+  addSubject
 );
 
 router.get(
   "/",
   authMiddleware,
-  getRoadmaps
+  getAttendance
 );
 
-router.get(
+router.put(
   "/:id",
   authMiddleware,
-  getRoadmap
+  updateSubject
 );
 
 router.delete(
   "/:id",
   authMiddleware,
-  deleteRoadmap
+  deleteSubject
 );
 
 router.patch(
-  "/:id/task",
+  "/present/:id",
   authMiddleware,
-  toggleTask
+  markPresent
 );
-router.post(
-  "/generate",
+
+router.patch(
+  "/absent/:id",
   authMiddleware,
-  generateRoadmap
+  markAbsent
 );
 
 export default router;

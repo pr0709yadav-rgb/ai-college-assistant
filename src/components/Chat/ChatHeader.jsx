@@ -1,14 +1,30 @@
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+
+
 function ChatHeader() {
   return (
-    <header className="bg-slate-900 border-b border-slate-800 px-8 py-5">
-      <h1 className="text-2xl font-bold text-cyan-400">
-        AI College Assistant
-      </h1>
+    <div className="flex items-center justify-between">
 
-      <p className="text-gray-400 text-sm">
-        Ask anything about coding, resume, syllabus or placements.
-      </p>
-    </header>
+  <div>
+    <h1 className="text-4xl font-bold text-cyan-400">
+      AI College Assistant
+    </h1>
+
+    <p className="text-gray-400 mt-2">
+      Ask anything about coding, resume, syllabus or placements.
+    </p>
+  </div>
+
+  <Link
+    to="/dashboard"
+    className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-3 rounded-xl transition"
+  >
+    <ArrowLeft size={20} />
+    Dashboard
+  </Link>
+
+</div>
   );
 }
 

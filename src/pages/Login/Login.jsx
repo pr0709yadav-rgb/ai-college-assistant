@@ -13,6 +13,8 @@ import {
 import { loginUser } from "../../services/auth.service";
 import { useAuth } from "../../context/AuthContext";
 
+
+
 function Login() {
   const navigate = useNavigate();
 
@@ -101,6 +103,16 @@ function Login() {
                 placeholder="Enter your email"
                 className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white outline-none focus:border-cyan-400"
               />
+              <div className="flex justify-end mb-4">
+
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                >
+                  Forgot Password?
+                </Link>
+                
+              </div>
 
             </div>
 

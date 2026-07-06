@@ -8,6 +8,10 @@ import pdfRoutes from "./routes/pdf.routes.js";
 import resumeRoutes from "./routes/resume.routes.js";
 import interviewRoutes from "./routes/interview.routes.js";
 import codingRoutes from "./routes/coding.routes.js";
+import forgotPasswordRoutes from "./routes/forgotPassword.routes.js";
+import attendanceRoutes from "./routes/attendance.routes.js";
+import roadmapRoutes from "./routes/roadmap.routes.js";
+
 
 const app = express();
 
@@ -36,6 +40,19 @@ app.use(
 app.use("/api/resume", resumeRoutes);
 app.use("/api/interview", interviewRoutes);
 app.use("/api/coding", codingRoutes);
+app.use(
+  "/api/auth",
+  forgotPasswordRoutes
+);
+app.use(
+  "/api/attendance",
+  attendanceRoutes
+);
+app.use(
+  "/api/roadmap",
+  roadmapRoutes
+);
+
 
 export default app;
 

@@ -57,12 +57,13 @@ function Navbar() {
           >
             Sign Up
           </Link>
-          <Link
+
+          {/* <Link
             to="/dashboard"
             className="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-medium transition"
           >
             Dashboard
-          </Link>
+          </Link> */}
         </div>
 
       </div>

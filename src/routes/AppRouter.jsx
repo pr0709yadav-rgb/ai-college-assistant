@@ -15,6 +15,9 @@ import Interview from "../pages/Interview/Interview";
 import Roadmap from "../pages/Roadmap/Roadmap";
 import Attendance from "../pages/Attendance/Attendance";
 import Profile from "../pages/Profile/Profile";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+
+
 
 function AppRouter() {
   return (
@@ -108,6 +111,10 @@ function AppRouter() {
               <Profile />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
         />
 
       </Routes>
