@@ -1,4 +1,5 @@
 import Roadmap from "../models/roadmap.js";
+import Activity from "../models/activity.js";
 import { generateRoadmapAI } from "../service/roadmap.service.js";
 
 // ======================================
@@ -10,6 +11,13 @@ export const saveRoadmap = async (req, res) => {
     const roadmap = await Roadmap.create({
       ...req.body,
       user: req.user._id,
+    });
+
+    // Save Activity
+    await Activity.create({
+      user: req.user._id,
+      module: "Roadmap",
+      action: `Saved roadmap for ${roadmap.goal}`,
     });
 
     res.status(201).json({
@@ -109,6 +117,13 @@ export const deleteRoadmap = async (req, res) => {
       });
     }
 
+    // Save Activity
+    await Activity.create({
+      user: req.user._id,
+      module: "Roadmap",
+      action: `Deleted roadmap for ${roadmap.goal}`,
+    });
+
     res.status(200).json({
       success: true,
       message: "Roadmap deleted successfully.",
@@ -148,10 +163,21 @@ export const toggleTask = async (req, res) => {
       });
     }
 
-    roadmap.roadmap[weekIndex].tasks[taskIndex].completed =
-      !roadmap.roadmap[weekIndex].tasks[taskIndex].completed;
+    const task =
+      roadmap.roadmap[weekIndex].tasks[taskIndex];
+
+    task.completed = !task.completed;
 
     await roadmap.save();
+
+    // Save Activity
+    await Activity.create({
+      user: req.user._id,
+      module: "Roadmap",
+      action: `${
+        task.completed ? "Completed" : "Reopened"
+      } task "${task.task}"`,
+    });
 
     res.status(200).json({
       success: true,
@@ -193,6 +219,13 @@ export const generateRoadmap = async (req, res) => {
       level,
       duration
     );
+
+    // Save Activity
+    await Activity.create({
+      user: req.user._id,
+      module: "Roadmap",
+      action: `Generated ${goal} roadmap`,
+    });
 
     res.status(200).json({
       success: true,

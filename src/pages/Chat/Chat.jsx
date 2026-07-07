@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import ChatSidebar from "../../components/Chat/ChatSidebar";
-import ChatHeader from "../../components/Chat/ChatHeader";
 import ChatMessages from "../../components/Chat/ChatMessages";
 import ChatInput from "../../components/Chat/ChatInput";
 
@@ -28,15 +27,11 @@ function Chat() {
       const data = await getChatHistory();
 
       const formatted = data.chats.map((chat) => ({
-        sender:
-          chat.role === "user"
-            ? "user"
-            : "assistant",
+        sender: chat.role === "user" ? "user" : "assistant",
         text: chat.message,
       }));
 
       setMessages(formatted);
-
     } catch (error) {
       console.log(error);
     }
@@ -47,9 +42,8 @@ function Chat() {
   // ==========================
 
   const handleSend = async () => {
-  console.log("Send button clicked");
+    console.log("Send button clicked");
 
-  
     if (!question.trim()) return;
 
     const userMessage = question;
@@ -67,9 +61,7 @@ function Chat() {
     try {
       setLoading(true);
 
-      const data = await sendMessage(
-        userMessage
-      );
+      const data = await sendMessage(userMessage);
 
       setMessages((prev) => [
         ...prev,
@@ -78,7 +70,6 @@ function Chat() {
           text: data.reply,
         },
       ]);
-
     } catch (error) {
       setMessages((prev) => [
         ...prev,
@@ -96,13 +87,9 @@ function Chat() {
 
   return (
     <div className="flex h-screen bg-slate-950 text-white">
-
       <ChatSidebar />
 
       <div className="flex flex-col flex-1">
-
-        <ChatHeader />
-
         <ChatMessages
           messages={messages}
           loading={loading}
@@ -114,9 +101,7 @@ function Chat() {
           onSend={handleSend}
           loading={loading}
         />
-
       </div>
-
     </div>
   );
 }

@@ -28,4 +28,8 @@ const pdfSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Pdf", pdfSchema);
+const Pdf =
+  mongoose.models.Pdf ||
+  mongoose.model("Pdf", pdfSchema);
+
+export default Pdf;

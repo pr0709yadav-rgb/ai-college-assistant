@@ -1,11 +1,10 @@
 import { Bot, User, Copy, Check } from "lucide-react";
 import { useState } from "react";
 
-function MessageBubble({
-  sender,
-  text,
-}) {
+const MessageBubble = ({ sender, text }) => {
   const [copied, setCopied] = useState(false);
+
+  const isUser = sender === "user";
 
   const handleCopy = async () => {
     try {
@@ -20,64 +19,90 @@ function MessageBubble({
     }
   };
 
-  const isUser = sender === "user";
-
   return (
     <div
-      className={`flex ${
-        isUser
-          ? "justify-end"
-          : "justify-start"
+      className={`flex w-full mb-5 ${
+        isUser ? "justify-end" : "justify-start"
       }`}
     >
       <div
-        className={`relative max-w-[85%] rounded-2xl p-4 shadow-md ${
-          isUser
-            ? "bg-cyan-500 text-white"
-            : "bg-slate-800 border border-slate-700 text-white"
+        className={`flex gap-3 max-w-[90%] ${
+          isUser ? "flex-row-reverse" : ""
         }`}
       >
-        <div className="flex items-center justify-between mb-3">
+        {/* Avatar */}
 
-          <div className="flex items-center gap-2">
+        <div
+          className={`h-11 w-11 rounded-xl flex items-center justify-center shrink-0 ${
+            isUser
+              ? "bg-cyan-500 text-white"
+              : "bg-slate-800 border border-slate-700 text-cyan-400"
+          }`}
+        >
+          {isUser ? <User size={18} /> : <Bot size={18} />}
+        </div>
 
-            {isUser ? (
-              <User size={16} />
-            ) : (
-              <Bot
-                size={16}
-                className="text-cyan-400"
-              />
-            )}
+        {/* Bubble */}
 
-            <span className="text-xs font-semibold">
+        <div
+          className={`group relative rounded-2xl px-5 py-4 shadow-lg transition-all duration-300 ${
+            isUser
+              ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white"
+              : "bg-slate-800/90 backdrop-blur border border-slate-700 text-slate-100 hover:border-cyan-500/40"
+          }`}
+        >
+          {/* Header */}
+
+          <div className="mb-3 flex items-center justify-between">
+
+            <span
+              className={`text-xs font-semibold uppercase tracking-wider ${
+                isUser
+                  ? "text-cyan-100"
+                  : "text-cyan-400"
+              }`}
+            >
               {isUser ? "You" : "AI Assistant"}
             </span>
 
+            {!isUser && (
+              <button
+                onClick={handleCopy}
+                className="
+                  opacity-0
+                  group-hover:opacity-100
+                  transition
+                  rounded-lg
+                  p-1.5
+                  hover:bg-slate-700
+                "
+              >
+                {copied ? (
+                  <Check
+                    size={16}
+                    className="text-green-400"
+                  />
+                ) : (
+                  <Copy
+                    size={16}
+                    className="text-slate-400"
+                  />
+                )}
+              </button>
+            )}
+
           </div>
 
-          {!isUser && (
-            <button
-              onClick={handleCopy}
-              className="hover:text-cyan-400 transition"
-            >
-              {copied ? (
-                <Check size={16} />
-              ) : (
-                <Copy size={16} />
-              )}
-            </button>
-          )}
+          {/* Message */}
+
+          <div className="whitespace-pre-wrap break-words leading-7 text-[15px]">
+            {text}
+          </div>
 
         </div>
-
-        <div className="whitespace-pre-wrap break-words leading-7 text-sm">
-          {text}
-        </div>
-
       </div>
     </div>
   );
-}
+};
 
 export default MessageBubble;

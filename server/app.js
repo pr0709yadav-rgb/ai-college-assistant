@@ -11,6 +11,8 @@ import codingRoutes from "./routes/coding.routes.js";
 import forgotPasswordRoutes from "./routes/forgotPassword.routes.js";
 import attendanceRoutes from "./routes/attendance.routes.js";
 import roadmapRoutes from "./routes/roadmap.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
+
 
 
 const app = express();
@@ -52,7 +54,10 @@ app.use(
   "/api/roadmap",
   roadmapRoutes
 );
-
+app.use(
+  "/api/dashboard",
+  dashboardRoutes
+);
 
 export default app;
 

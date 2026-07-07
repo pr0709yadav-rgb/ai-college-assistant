@@ -1,5 +1,5 @@
 import { askGemini } from "../service/gemini.service.js";
-
+import Activity from "../models/activity.js";
 // =======================================
 // Start Interview
 // =======================================
@@ -34,6 +34,12 @@ Rules:
 
     const question = await askGemini(prompt);
 
+
+    await Activity.create({
+      user: req.user._id,
+      module: "Interview",
+      action: `Started ${role} Interview`,
+    });
     res.status(200).json({
       success: true,
       question,
@@ -148,6 +154,13 @@ Format:
       });
 
     }
+
+    await Activity.create({
+      user: req.user._id,
+      module: "Interview",
+      action: `Answered Interview Question`,
+    });
+
 
     res.status(200).json({
       success: true,

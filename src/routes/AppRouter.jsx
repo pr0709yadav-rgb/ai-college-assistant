@@ -9,6 +9,7 @@ import Signup from "../pages/Signup/Signup";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Chat from "../pages/Chat/Chat";
 import PdfChat from "../pages/pdf-chat/pdfChat";
+import PdfViewerPage from "../pages/pdf-chat/PdfViewerPage";
 import Coding from "../pages/Coding/Coding";
 import Resume from "../pages/Resume/Resume";
 import Interview from "../pages/Interview/Interview";
@@ -17,20 +18,31 @@ import Attendance from "../pages/Attendance/Attendance";
 import Profile from "../pages/Profile/Profile";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 
-
-
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Public Routes */}
+        {/* ================= Public Routes ================= */}
 
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
 
-        {/* Protected Routes */}
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/signup"
+          element={<Signup />}
+        />
+
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+        {/* ================= Protected Routes ================= */}
 
         <Route
           path="/dashboard"
@@ -55,6 +67,15 @@ function AppRouter() {
           element={
             <ProtectedRoute>
               <PdfChat />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/pdf-viewer/:id"
+          element={
+            <ProtectedRoute>
+              <PdfViewerPage />
             </ProtectedRoute>
           }
         />
@@ -111,10 +132,6 @@ function AppRouter() {
               <Profile />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
         />
 
       </Routes>

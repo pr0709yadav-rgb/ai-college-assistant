@@ -1,6 +1,9 @@
 import fs from "fs";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
+import Resume from "../models/resume.js";
+import Activity from "../models/activity.js";
+
 import { askGemini } from "../service/gemini.service.js";
 
 // =====================================
@@ -88,6 +91,68 @@ ${resumeText}
         message: "AI returned invalid JSON.",
       });
     }
+
+    // =====================================
+    // Save Resume Analysis
+    // =====================================
+
+    const existingResume = await Resume.findOne({
+      user: req.user._id,
+    });
+
+    if (existingResume) {
+      existingResume.resumeScore =
+        analysis.resumeScore;
+
+      existingResume.atsScore =
+        analysis.atsScore;
+
+      existingResume.strengths =
+        analysis.strengths;
+
+      existingResume.weaknesses =
+        analysis.weaknesses;
+
+      existingResume.missingSkills =
+        analysis.missingSkills;
+
+      existingResume.suggestions =
+        analysis.suggestions;
+
+      await existingResume.save();
+    } else {
+      await Resume.create({
+        user: req.user._id,
+
+        resumeScore:
+          analysis.resumeScore,
+
+        atsScore:
+          analysis.atsScore,
+
+        strengths:
+          analysis.strengths,
+
+        weaknesses:
+          analysis.weaknesses,
+
+        missingSkills:
+          analysis.missingSkills,
+
+        suggestions:
+          analysis.suggestions,
+      });
+    }
+
+    // =====================================
+    // Save Activity
+    // =====================================
+
+    await Activity.create({
+      user: req.user._id,
+      module: "Resume",
+      action: "Analyzed Resume",
+    });
 
     res.status(200).json({
       success: true,

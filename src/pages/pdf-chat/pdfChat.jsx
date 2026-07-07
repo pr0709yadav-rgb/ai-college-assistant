@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 
-import DashboardLayout from "../../layouts/DashboardLayout";
-
 import PdfToolbar from "../../components/pdfChat/PdfToolbar";
 import PdfUpload from "../../components/pdfChat/PdfUpload";
-import PdfViewer from "../../components/pdfChat/PdfViewer";
 import ChatWindow from "../../components/pdfChat/ChatWindow";
 
 import { getUserPdfs } from "../../services/pdfServices";
@@ -14,14 +11,13 @@ const PdfChat = () => {
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // ===========================
+  // ==========================
   // Load PDFs
-  // ===========================
+  // ==========================
 
   const loadPdfs = async () => {
     try {
       const res = await getUserPdfs();
-
       setPdfs(res.pdfs || []);
     } catch (err) {
       console.log(err);
@@ -33,12 +29,14 @@ const PdfChat = () => {
   }, []);
 
   return (
-    <DashboardLayout>
-      <div className="flex flex-col h-[calc(100vh-120px)]">
+    <div className="h-screen bg-slate-950 text-white overflow-hidden">
+
+      <div className="h-full flex flex-col p-4 gap-4">
+
+        {/* ================= Toolbar ================= */}
 
         <PdfToolbar
           pdfs={pdfs}
-          setPdfs={setPdfs}
           selectedPdf={selectedPdf}
           setSelectedPdf={setSelectedPdf}
           searchTerm={searchTerm}
@@ -46,36 +44,43 @@ const PdfChat = () => {
           loadPdfs={loadPdfs}
         />
 
-        <div className="flex flex-1 gap-4 mt-4 overflow-hidden">
+        {/* ================= Main Layout ================= */}
 
-          {/* Left */}
+        <div className="flex-1 grid grid-cols-12 gap-4 overflow-hidden">
 
-          <div className="w-72 bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+          {/* ================= PDF Library ================= */}
 
-            <PdfUpload
-              pdfs={pdfs}
-              setPdfs={setPdfs}
-              selectedPdf={selectedPdf}
-              setSelectedPdf={setSelectedPdf}
-              searchTerm={searchTerm}
-              loadPdfs={loadPdfs}
-            />
+          <div className="col-span-12 lg:col-span-3 xl:col-span-2 rounded-2xl border border-slate-700 bg-slate-900 overflow-hidden">
+
+            <div className="border-b border-slate-700 px-5 py-4">
+
+              <h2 className="text-lg font-bold">
+                📚 PDF Library
+              </h2>
+
+              <p className="text-sm text-slate-400 mt-1">
+                Upload and manage your PDFs
+              </p>
+
+            </div>
+
+            <div className="h-[calc(100%-76px)] overflow-y-auto">
+
+              <PdfUpload
+                pdfs={pdfs}
+                selectedPdf={selectedPdf}
+                setSelectedPdf={setSelectedPdf}
+                searchTerm={searchTerm}
+                loadPdfs={loadPdfs}
+              />
+
+            </div>
 
           </div>
 
-          {/* Center */}
+          {/* ================= PDF Chat ================= */}
 
-          <div className="flex-1 bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
-
-            <PdfViewer
-              selectedPdf={selectedPdf}
-            />
-
-          </div>
-
-          {/* Right */}
-
-          <div className="w-[380px] bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+          <div className="col-span-12 lg:col-span-9 xl:col-span-10 rounded-2xl border border-slate-700 bg-slate-900 overflow-hidden">
 
             <ChatWindow
               selectedPdf={selectedPdf}
@@ -86,7 +91,8 @@ const PdfChat = () => {
         </div>
 
       </div>
-    </DashboardLayout>
+
+    </div>
   );
 };
 

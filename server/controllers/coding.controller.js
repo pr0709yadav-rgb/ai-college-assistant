@@ -1,4 +1,6 @@
 import { askGemini } from "../service/gemini.service.js";
+import Activity from "../models/activity.js";
+
 
 // ======================================
 // Coding Assistant
@@ -145,6 +147,12 @@ Explain the code in detail.
 `;
 
     const reply = await askGemini(prompt);
+
+    await Activity.create({
+      user: req.user._id,
+      module: "Coding",
+      action: `${mode} (${language})`,
+    });
 
     return res.status(200).json({
       success: true,

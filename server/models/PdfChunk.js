@@ -25,4 +25,8 @@ const pdfChunkSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("PdfChunk", pdfChunkSchema);
+const PdfChunk =
+  mongoose.models.PdfChunk ||
+  mongoose.model("PdfChunk", pdfChunkSchema);
+
+export default PdfChunk;

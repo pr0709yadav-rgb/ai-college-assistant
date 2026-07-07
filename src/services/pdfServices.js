@@ -5,6 +5,7 @@ const BASE_URL = `${import.meta.env.VITE_API_URL}/api/pdf`;
 // ===========================
 // Get Auth Token
 // ===========================
+
 const getToken = () => {
   return localStorage.getItem("token");
 };
@@ -12,6 +13,7 @@ const getToken = () => {
 // ===========================
 // Axios Config
 // ===========================
+
 const authConfig = () => ({
   headers: {
     Authorization: `Bearer ${getToken()}`,
@@ -21,6 +23,7 @@ const authConfig = () => ({
 // ===========================
 // Upload PDF
 // ===========================
+
 export const uploadPdf = async (file) => {
   try {
     const formData = new FormData();
@@ -51,6 +54,7 @@ export const uploadPdf = async (file) => {
 // ===========================
 // Get User PDFs
 // ===========================
+
 export const getUserPdfs = async () => {
   try {
     const response = await axios.get(
@@ -70,9 +74,21 @@ export const getUserPdfs = async () => {
 };
 
 // ===========================
-// Chat with PDF
+// Get PDF URL
 // ===========================
-export const chatWithPdf = async (pdfId, question) => {
+
+export const getPdfUrl = (id) => {
+  return `${import.meta.env.VITE_API_URL}/api/pdf/view/${id}`;
+};
+
+// ===========================
+// Chat With PDF
+// ===========================
+
+export const chatWithPdf = async (
+  pdfId,
+  question
+) => {
   try {
     const response = await axios.post(
       `${BASE_URL}/chat`,
@@ -97,6 +113,7 @@ export const chatWithPdf = async (pdfId, question) => {
 // ===========================
 // Delete PDF
 // ===========================
+
 export const deletePdf = async (pdfId) => {
   try {
     const response = await axios.delete(

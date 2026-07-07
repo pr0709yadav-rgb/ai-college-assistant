@@ -2,6 +2,7 @@ import fs from "fs";
 
 import Pdf from "../models/pdf.js";
 import PdfChunk from "../models/PdfChunk.js";
+import Activity from "../models/activity.js";
 
 import { extractPdfText } from "../service/pdf.service.js";
 import { chunkText } from "../utils/chunkText.js";
@@ -20,10 +21,10 @@ export const uploadPdf = async (req, res) => {
       });
     }
 
-    // Extract text from PDF
+    // Extract text
     const extractedText = await extractPdfText(req.file.path);
 
-    // Save PDF details
+    // Save PDF
     const pdf = await Pdf.create({
       user: req.user._id,
       originalName: req.file.originalname,
@@ -34,7 +35,7 @@ export const uploadPdf = async (req, res) => {
     // Split into chunks
     const chunks = chunkText(extractedText);
 
-    // Generate embedding for every chunk
+    // Generate embeddings
     for (let i = 0; i < chunks.length; i++) {
       const embedding = await getEmbedding(chunks[i]);
 
@@ -46,6 +47,16 @@ export const uploadPdf = async (req, res) => {
       });
     }
 
+    // ==============================
+    // Save Activity
+    // ==============================
+
+    await Activity.create({
+      user: req.user._id,
+      module: "PDF Chat",
+      action: `Uploaded ${req.file.originalname}`,
+    });
+
     res.status(201).json({
       success: true,
       message: "PDF uploaded and indexed successfully",
@@ -54,12 +65,14 @@ export const uploadPdf = async (req, res) => {
     });
 
   } catch (error) {
+
     console.error(error);
 
     res.status(500).json({
       success: false,
       message: error.message,
     });
+
   }
 };
 
@@ -108,7 +121,6 @@ export const deletePdf = async (req, res) => {
       });
     }
 
-    // Check ownership
     if (pdf.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({
         success: false,
@@ -116,18 +128,25 @@ export const deletePdf = async (req, res) => {
       });
     }
 
-    // Delete uploaded file
     if (fs.existsSync(`uploads/${pdf.filename}`)) {
       fs.unlinkSync(`uploads/${pdf.filename}`);
     }
 
-    // Delete all chunks
     await PdfChunk.deleteMany({
       pdf: pdf._id,
     });
 
-    // Delete PDF document
     await pdf.deleteOne();
+
+    // ==============================
+    // Save Activity
+    // ==============================
+
+    await Activity.create({
+      user: req.user._id,
+      module: "PDF Chat",
+      action: `Deleted ${pdf.originalName}`,
+    });
 
     res.status(200).json({
       success: true,
@@ -135,6 +154,45 @@ export const deletePdf = async (req, res) => {
     });
 
   } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
+  // =====================================
+// View PDF
+// =====================================
+
+export const viewPdf = async (req, res) => {
+  try {
+
+    const pdf = await Pdf.findById(req.params.id);
+
+    if (!pdf) {
+      return res.status(404).json({
+        success: false,
+        message: "PDF not found",
+      });
+    }
+
+    if (pdf.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    return res.sendFile(pdf.filename, {
+      root: "uploads",
+    });
+
+  } catch (error) {
+
+    console.error(error);
 
     res.status(500).json({
       success: false,

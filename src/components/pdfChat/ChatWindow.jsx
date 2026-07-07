@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-
-import { Bot } from "lucide-react";
-
+import { Eye } from "lucide-react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import ChatInput from "../Chat/ChatInput";
 import MessageBubble from "../Chat/MessageBubble";
@@ -13,6 +12,8 @@ import EmptyState from "./EmptyState";
 import { chatWithPdf } from "../../services/pdfServices";
 
 const ChatWindow = ({ selectedPdf }) => {
+  const navigate = useNavigate();
+
   const [messages, setMessages] = useState([]);
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ const ChatWindow = ({ selectedPdf }) => {
   }, [messages, loading]);
 
   // ===============================
-  // Reset chat when PDF changes
+  // Reset Chat
   // ===============================
 
   useEffect(() => {
@@ -82,6 +83,7 @@ const ChatWindow = ({ selectedPdf }) => {
         {
           sender: "assistant",
           text:
+            error.response?.data?.message ||
             error.message ||
             "Something went wrong.",
         },
@@ -92,7 +94,7 @@ const ChatWindow = ({ selectedPdf }) => {
   };
 
   // ===============================
-  // Empty State
+  // No PDF Selected
   // ===============================
 
   if (!selectedPdf) {
@@ -100,81 +102,96 @@ const ChatWindow = ({ selectedPdf }) => {
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex h-full flex-col">
 
       {/* Header */}
 
-      <div className="border-b border-slate-700 p-5">
+      <div className="flex items-center justify-between border-b border-slate-700 px-6 py-4">
 
-        <div className="flex items-center gap-3">
+        <div>
 
-          <Bot
-            className="text-cyan-400"
-            size={22}
-          />
+          <h2 className="text-lg font-semibold text-white">
+            📄 Active PDF
+          </h2>
 
-          <div>
+          <p className="mt-1 truncate text-sm text-slate-400 max-w-lg">
+            {selectedPdf.originalName}
+          </p>
 
-            <h2 className="text-white font-semibold">
-              AI PDF Assistant
+        </div>
+
+        <button
+          onClick={() =>
+            navigate(`/pdf-viewer/${selectedPdf._id}`)
+          }
+          className="
+            flex
+            items-center
+            gap-2
+            rounded-lg
+            border
+            border-slate-600
+            px-4
+            py-2
+            text-sm
+            text-cyan-400
+            transition
+            hover:bg-slate-800
+          "
+        >
+          <Eye size={18} />
+          Open PDF
+        </button>
+
+      </div>
+
+      {/* Chat Area */}
+
+      <div className="flex-1 overflow-y-auto p-6">
+
+        {messages.length === 0 ? (
+
+          <div className="flex h-full flex-col items-center justify-center text-center">
+
+            <div className="mb-6 text-6xl">
+              📄
+            </div>
+
+            <h2 className="text-2xl font-bold text-white">
+              Ask anything about your PDF
             </h2>
 
-            <p className="text-xs text-slate-400 truncate max-w-[260px]">
-              {selectedPdf.originalName}
+            <p className="mt-3 max-w-md text-slate-400 leading-7">
+              Get summaries, explanations,
+              MCQs, interview questions,
+              and more.
             </p>
 
           </div>
 
-        </div>
+        ) : (
 
-      </div>
+          <div className="space-y-5">
 
-      {/* Messages */}
+            {messages.map((message, index) => (
+              <MessageBubble
+                key={index}
+                sender={message.sender}
+                text={message.text}
+              />
+            ))}
 
-      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            {loading && <LoadingMessage />}
 
-        {messages.length === 0 && (
-
-          <div className="text-center mt-16">
-
-            <Bot
-              size={60}
-              className="mx-auto text-cyan-400"
-            />
-
-            <h3 className="mt-5 text-xl text-white font-semibold">
-
-              Ask Anything
-
-            </h3>
-
-            <p className="mt-2 text-slate-400">
-
-              Ask questions about the selected PDF.
-
-            </p>
+            <div ref={bottomRef} />
 
           </div>
 
         )}
 
-        {messages.map((message, index) => (
-
-          <MessageBubble
-            key={index}
-            sender={message.sender}
-            text={message.text}
-          />
-
-        ))}
-
-        {loading && <LoadingMessage />}
-
-        <div ref={bottomRef}></div>
-
       </div>
 
-      {/* Input */}
+            {/* Input */}
 
       <ChatInput
         value={question}
