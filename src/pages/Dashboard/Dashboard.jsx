@@ -73,11 +73,11 @@ function Dashboard() {
       {/* Greeting */}
 
       <div className="mb-8">
-        <h2 className="text-4xl font-bold text-white">
+        <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
           Good Evening 👋
         </h2>
 
-        <p className="mt-2 text-slate-400">
+        <p className="mt-2 text-base text-slate-600 dark:text-slate-400">
           Continue your AI learning journey.
         </p>
       </div>
@@ -121,108 +121,193 @@ function Dashboard() {
       {/* Middle */}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
+
         {/* Quick Actions */}
 
-        <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6">
-          <h3 className="mb-5 text-xl font-bold">
-            ⚡ Quick Actions
-          </h3>
+        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+        <h3 className="mb-4 text-lg font-bold text-slate-800 dark:text-white">
+          ⚡ Quick Actions
+        </h3>
 
-          <div className="space-y-4">
-            {actions.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                className="flex items-center justify-between rounded-2xl bg-slate-800 p-4 transition hover:bg-slate-700"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="text-cyan-400">
-                    {item.icon}
-                  </div>
-
-                  {item.title}
-                </div>
-
-                →
-              </Link>
+      <div className="space-y-3">
+        {actions.map((item) => (
+          <Link
+            key={item.title}
+            to={item.path}
+            className="
+            flex
+            items-center
+            justify-between
+            rounded-2xl
+            border
+            border-slate-200
+            bg-white
+            px-4
+            py-3
+            text-slate-700
+            transition-all
+            duration-300
+            hover:border-indigo-500
+            hover:bg-indigo-50
+            hover:shadow-md
+            dark:border-slate-700
+            dark:bg-slate-800
+            dark:text-white
+            dark:hover:bg-slate-700
+          "
+          >
+            <div className="flex items-center gap-3">
+              <div className="text-cyan-500 dark:text-cyan-400">
+                {item.icon}
+              </div>
+        
+              <span className="font-medium">
+                {item.title}
+              </span>
+            </div>
+        
+            <span className="text-slate-500 dark:text-slate-300">
+              →
+            </span>
+          </Link>
             ))}
           </div>
         </div>
 
         {/* Weekly Progress */}
 
-        <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6">
-          <h3 className="mb-6 text-xl font-bold">
-            📈 Weekly Progress
-          </h3>
+      <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
 
-          <div className="space-y-5">
-            <div>
-              <div className="flex justify-between">
-                <span>AI Usage</span>
+        <h3 className="mb-4 text-lg font-bold text-slate-800 dark:text-white">
+          📈 Weekly Progress
+        </h3>
 
-                <span>{stats.aiUsage}%</span>
-              </div>
+        <div className="space-y-3">
 
-              <div className="mt-2 h-3 rounded-full bg-slate-700">
-                <div
-                  className="h-3 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500"
-                  style={{
-                    width: `${stats.aiUsage}%`,
-                  }}
-                />
-              </div>
+          <div>
+
+            <div className="mb-2 flex justify-between text-sm">
+
+              <span className="font-medium text-slate-700 dark:text-slate-300">
+                AI Usage
+              </span>
+
+              <span className="font-semibold text-slate-800 dark:text-white">
+                {stats.aiUsage}%
+              </span>
+
             </div>
 
-            <div className="flex justify-between">
-              <span>AI Chats</span>
+            <div className="h-2 rounded-full bg-slate-300 dark:bg-slate-700">
 
-              <span>{stats.chatCount}</span>
+              <div
+                className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500"
+                style={{
+                  width: `${stats.aiUsage}%`,
+                }}
+              />
+
             </div>
-
-            <div className="flex justify-between">
-              <span>Uploaded PDFs</span>
-
-              <span>{stats.pdfCount}</span>
-            </div>
-
-            <div className="flex justify-between">
-              <span>Roadmaps</span>
-
-              <span>{stats.roadmaps}</span>
-            </div>
+              
           </div>
+              
+          <div className="flex justify-between text-sm">
+              
+            <span className="text-slate-700 dark:text-slate-300">
+              AI Chats
+            </span>
+              
+            <span className="font-semibold text-slate-800 dark:text-white">
+              {stats.chatCount}
+            </span>
+              
+          </div>
+              
+          <div className="flex justify-between text-sm">
+              
+            <span className="text-slate-700 dark:text-slate-300">
+              PDFs
+            </span>
+              
+            <span className="font-semibold text-slate-800 dark:text-white">
+              {stats.pdfCount}
+            </span>
+              
+          </div>
+              
+          <div className="flex justify-between text-sm">
+              
+            <span className="text-slate-700 dark:text-slate-300">
+              Roadmaps
+            </span>
+              
+            <span className="font-semibold text-slate-800 dark:text-white">
+              {stats.roadmaps}
+            </span>
+              
+          </div>
+              
         </div>
+              
+      </div>
 
         {/* Today's Goal */}
 
-        <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6">
-          <h3 className="mb-5 text-xl font-bold">
-            🎯 Today's Goal
-          </h3>
+<div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
 
-          <div className="space-y-4 text-slate-300">
-            <label className="flex gap-3">
-              <input type="checkbox" />
-              Solve 2 Coding Questions
-            </label>
+  <h3 className="mb-4 text-lg font-bold text-slate-800 dark:text-white">
+    🎯 Today's Goal
+  </h3>
 
-            <label className="flex gap-3">
-              <input type="checkbox" />
-              Read 1 PDF
-            </label>
+  <div className="space-y-3 text-sm">
 
-            <label className="flex gap-3">
-              <input type="checkbox" />
-              Practice Interview
-            </label>
+    <label className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
 
-            <label className="flex gap-3">
-              <input type="checkbox" />
-              Improve Resume
-            </label>
-          </div>
-        </div>
+      <input
+        type="checkbox"
+        className="accent-indigo-600"
+      />
+
+      Solve 2 Coding Questions
+
+    </label>
+
+    <label className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+
+      <input
+        type="checkbox"
+        className="accent-indigo-600"
+      />
+
+      Read 1 PDF
+
+    </label>
+
+    <label className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+
+      <input
+        type="checkbox"
+        className="accent-indigo-600"
+      />
+
+      Practice Interview
+
+    </label>
+
+    <label className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+
+      <input
+        type="checkbox"
+        className="accent-indigo-600"
+      />
+
+      Improve Resume
+
+    </label>
+
+  </div>
+
+</div>
       </div>
 
       {/* Recent Activity */}

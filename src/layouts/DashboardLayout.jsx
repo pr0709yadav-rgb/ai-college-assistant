@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 import Sidebar from "../components/dashboard/Sidebar";
 import Topbar from "../components/dashboard/Topbar";
@@ -8,44 +8,117 @@ const DashboardLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+    <div
+      className="
+      min-h-screen
+      overflow-hidden
+      bg-slate-100
+      dark:bg-slate-950
+    "
+    >
+      {/* Background Decoration */}
 
-      <div className="flex h-full">
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl" />
+        <div className="absolute top-1/2 -right-40 h-[28rem] w-[28rem] rounded-full bg-cyan-500/10 blur-3xl" />
+      </div>
+
+      <div className="flex min-h-screen">
 
         {/* Desktop Sidebar */}
-        <aside className="hidden lg:flex lg:w-72 lg:flex-shrink-0 border-r border-white/10 bg-slate-900/70 backdrop-blur-xl">
-          <Sidebar />
+
+        <aside className="hidden lg:block w-78 p-5">
+          <div className="h-full overflow-hidden rounded-3xl shadow-xl">
+            <Sidebar />
+          </div>
         </aside>
 
         {/* Mobile Sidebar */}
+
         {sidebarOpen && (
           <>
             <div
-              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden"
               onClick={() => setSidebarOpen(false)}
+              className="
+              fixed
+              inset-0
+              z-40
+              bg-black/50
+              backdrop-blur-sm
+              lg:hidden
+            "
             />
 
-            <aside className="fixed left-0 top-0 z-50 h-full w-72 border-r border-white/10 bg-slate-900 shadow-2xl lg:hidden">
-              <Sidebar
-                closeSidebar={() =>
-                  setSidebarOpen(false)
-                }
-              />
+            <aside
+              className="
+              fixed
+              left-0
+              top-0
+              z-50
+              h-full
+              w-72
+              shadow-2xl
+              lg:hidden
+            "
+            >
+              <div className="relative h-full">
+                <Sidebar
+                  closeSidebar={() => setSidebarOpen(false)}
+                />
+
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="
+                  absolute
+                  right-4
+                  top-4
+                  rounded-xl
+                  bg-slate-800
+                  p-2
+                  text-white
+                "
+                >
+                  <X size={20} />
+                </button>
+              </div>
             </aside>
           </>
         )}
 
-        {/* Main Section */}
-        <div className="flex flex-1 flex-col overflow-hidden">
+        {/* Main */}
 
-          {/* Navbar */}
-          <header className="sticky top-0 z-30 border-b border-white/10 bg-slate-900/70 backdrop-blur-xl">
+        <div className="flex flex-1 flex-col">
 
-            <div className="flex h-20 items-center px-4 sm:px-6 lg:px-8">
+          {/* Topbar */}
+
+          <header
+            className="
+            sticky
+            top-0
+            z-30
+            px-4
+            pt-4
+            sm:px-6
+            lg:px-8
+          "
+          >
+            <div className="flex items-center gap-4">
 
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="mr-4 rounded-xl border border-white/10 bg-slate-800/60 p-2 transition hover:bg-slate-700 lg:hidden"
+                className="
+                rounded-2xl
+                border
+                border-slate-200
+                bg-white
+                p-3
+                shadow-sm
+                transition
+                hover:shadow-lg
+                dark:border-slate-700
+                dark:bg-slate-900
+                lg:hidden
+              "
               >
                 <Menu size={22} />
               </button>
@@ -55,24 +128,26 @@ const DashboardLayout = ({ children }) => {
               </div>
 
             </div>
-
           </header>
 
-          {/* Main Content */}
-          <main className="flex-1 overflow-y-auto">
+          {/* Content */}
 
-            <div className="min-h-full p-4 sm:p-6 lg:p-8">
-
-              {children}
-
-            </div>
-
+          <main
+            className="
+            flex-1
+            overflow-y-auto
+            px-4
+            py-6
+            sm:px-6
+            lg:px-8
+          "
+          >
+            {children}
           </main>
 
         </div>
 
       </div>
-
     </div>
   );
 };
