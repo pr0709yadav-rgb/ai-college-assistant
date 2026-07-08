@@ -13,7 +13,7 @@ const languages = [
 const LanguageSelector = ({ language, setLanguage }) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-white mb-2">
+      <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
         Programming Language
       </label>
 
@@ -24,18 +24,36 @@ const LanguageSelector = ({ language, setLanguage }) => {
           w-full
           rounded-lg
           border
-          border-slate-600
-          bg-slate-700
-          text-white
+          border-gray-300
+          dark:border-slate-600
+
+          bg-gray-50
+          dark:bg-slate-700
+
+          text-gray-900
+          dark:text-white
+
           px-4
           py-3
+
           outline-none
-          focus:border-blue-500
-          transition
+
+          transition-all
+          duration-200
+
+          focus:border-cyan-500
+          focus:ring-2
+          focus:ring-cyan-500/20
+
+          cursor-pointer
         "
       >
         {languages.map((lang) => (
-          <option key={lang.value} value={lang.value}>
+          <option
+            key={lang.value}
+            value={lang.value}
+            className="bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+          >
             {lang.label}
           </option>
         ))}

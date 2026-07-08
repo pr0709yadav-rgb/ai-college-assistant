@@ -18,18 +18,46 @@ function GoalSelector({
   return (
     <div className="mb-6">
 
-      <label className="block text-lg font-semibold mb-3">
+      <label className="block text-lg font-semibold text-gray-900 dark:text-white mb-3">
         Career Goal
       </label>
 
       <select
         value={goal}
-        onChange={(e) =>
-          setGoal(e.target.value)
-        }
-        className="w-full border border-gray-300 bg-white text-gray-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        onChange={(e) => setGoal(e.target.value)}
+        className="
+          w-full
+          rounded-xl
+          border
+
+          border-gray-300
+          dark:border-slate-600
+
+          bg-white
+          dark:bg-slate-700
+
+          text-gray-900
+          dark:text-white
+
+          px-4
+          py-3
+
+          outline-none
+
+          transition-all
+          duration-200
+
+          focus:border-cyan-500
+          focus:ring-2
+          focus:ring-cyan-500/20
+
+          cursor-pointer
+        "
       >
-        <option value="">
+        <option
+          value=""
+          className="bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+        >
           Select Goal
         </option>
 
@@ -37,6 +65,7 @@ function GoalSelector({
           <option
             key={item}
             value={item}
+            className="bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
           >
             {item}
           </option>

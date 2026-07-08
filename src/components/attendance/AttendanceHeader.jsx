@@ -1,32 +1,25 @@
 import { Plus } from "lucide-react";
 
-function AttendanceHeader({
-  setOpenModal,
-}) {
+function AttendanceHeader({ setOpenModal }) {
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
-
+    <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
       <div>
-
-        <h1 className="text-3xl font-bold text-slate-800">
+        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
           Attendance Tracker
         </h1>
 
-        <p className="text-slate-500 mt-1">
+        <p className="mt-2 text-base font-medium text-slate-600 dark:text-slate-300">
           Track your attendance subject-wise.
         </p>
-
       </div>
 
       <button
         onClick={() => setOpenModal(true)}
-        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold transition"
+        className="premium-button-primary"
       >
         <Plus size={20} />
-
         Add Subject
       </button>
-
     </div>
   );
 }

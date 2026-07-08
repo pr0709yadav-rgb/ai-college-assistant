@@ -59,13 +59,13 @@ const Coding = () => {
 
         {/* Header */}
 
-        <div className="bg-slate-800 rounded-xl p-8 shadow-lg">
+        <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-8 shadow-lg transition-colors">
 
-          <h1 className="text-3xl font-bold text-white">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             AI Coding Assistant
           </h1>
 
-          <p className="text-slate-400 mt-3">
+          <p className="mt-3 text-gray-600 dark:text-slate-400">
             Explain code, debug errors, optimize performance and generate
             solutions using AI.
           </p>
@@ -78,7 +78,7 @@ const Coding = () => {
 
           {/* LEFT PANEL */}
 
-          <div className="bg-slate-800 rounded-xl shadow-lg p-6 h-[760px] flex flex-col">
+          <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg p-6 h-[760px] flex flex-col transition-colors">
 
             <div className="space-y-5">
 
@@ -117,7 +117,7 @@ const Coding = () => {
               <button
                 onClick={handleGenerate}
                 disabled={loading}
-                className="py-3 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white font-semibold transition"
+                className="py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 disabled:bg-gray-400 dark:disabled:bg-slate-600 text-white font-semibold transition-all duration-200"
               >
                 {loading ? "Generating..." : "Generate Response"}
               </button>

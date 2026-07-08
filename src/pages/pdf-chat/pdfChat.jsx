@@ -11,10 +11,6 @@ const PdfChat = () => {
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // ==========================
-  // Load PDFs
-  // ==========================
-
   const loadPdfs = async () => {
     try {
       const res = await getUserPdfs();
@@ -29,12 +25,8 @@ const PdfChat = () => {
   }, []);
 
   return (
-    <div className="h-screen bg-slate-950 text-white overflow-hidden">
-
-      <div className="h-full flex flex-col p-4 gap-4">
-
-        {/* ================= Toolbar ================= */}
-
+    <div className="app-bg h-screen overflow-hidden text-slate-950 dark:text-white">
+      <div className="flex h-full flex-col gap-4 p-4">
         <PdfToolbar
           pdfs={pdfs}
           selectedPdf={selectedPdf}
@@ -44,28 +36,19 @@ const PdfChat = () => {
           loadPdfs={loadPdfs}
         />
 
-        {/* ================= Main Layout ================= */}
-
-        <div className="flex-1 grid grid-cols-12 gap-4 overflow-hidden">
-
-          {/* ================= PDF Library ================= */}
-
-          <div className="col-span-12 lg:col-span-3 xl:col-span-2 rounded-2xl border border-slate-700 bg-slate-900 overflow-hidden">
-
-            <div className="border-b border-slate-700 px-5 py-4">
-
-              <h2 className="text-lg font-bold">
-                📚 PDF Library
+        <div className="grid flex-1 grid-cols-12 gap-4 overflow-hidden">
+          <div className="premium-card col-span-12 overflow-hidden lg:col-span-3 xl:col-span-3 2xl:col-span-2">
+            <div className="border-b border-slate-200/80 px-5 py-4 dark:border-white/10">
+              <h2 className="text-lg font-bold text-slate-950 dark:text-white">
+                PDF Library
               </h2>
 
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Upload and manage your PDFs
               </p>
-
             </div>
 
             <div className="h-[calc(100%-76px)] overflow-y-auto">
-
               <PdfUpload
                 pdfs={pdfs}
                 selectedPdf={selectedPdf}
@@ -73,25 +56,14 @@ const PdfChat = () => {
                 searchTerm={searchTerm}
                 loadPdfs={loadPdfs}
               />
-
             </div>
-
           </div>
 
-          {/* ================= PDF Chat ================= */}
-
-          <div className="col-span-12 lg:col-span-9 xl:col-span-10 rounded-2xl border border-slate-700 bg-slate-900 overflow-hidden">
-
-            <ChatWindow
-              selectedPdf={selectedPdf}
-            />
-
+          <div className="premium-card col-span-12 overflow-hidden lg:col-span-9 xl:col-span-9 2xl:col-span-10">
+            <ChatWindow selectedPdf={selectedPdf} />
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 };

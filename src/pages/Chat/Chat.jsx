@@ -86,10 +86,10 @@ function Chat() {
   };
 
   return (
-    <div className="flex h-screen bg-slate-950 text-white">
+    <div className="app-bg flex h-screen overflow-hidden text-slate-950 dark:text-white">
       <ChatSidebar />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex min-w-0 flex-1 flex-col">
         <ChatMessages
           messages={messages}
           loading={loading}

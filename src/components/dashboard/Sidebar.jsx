@@ -81,17 +81,17 @@ const Sidebar = ({ closeSidebar }) => {
       h-full
       w-80
       flex-col
-      border-r
-      border-slate-200
-      bg-white/95
+      border
+      border-white/70
+      bg-white/88
       backdrop-blur-2xl
-      dark:border-slate-800
-      dark:bg-slate-950/95
+      dark:border-white/10
+      dark:bg-slate-950/88
     "
     >
       {/* Logo */}
 
-      <div className="border-b border-slate-200 px-7 py-7 dark:border-slate-800">
+      <div className="border-b border-slate-200/70 px-6 py-6 dark:border-white/10">
 
         <div className="flex items-center gap-4">
 
@@ -110,6 +110,7 @@ const Sidebar = ({ closeSidebar }) => {
             text-2xl
             text-white
             shadow-xl
+            shadow-indigo-500/20
           "
           >
             <FaGraduationCap />
@@ -137,9 +138,9 @@ const Sidebar = ({ closeSidebar }) => {
         className="
         flex-1
         overflow-y-auto
-        px-5
-        py-6
-        space-y-2
+        px-4
+        py-5
+        space-y-1.5
       "
       >
         {menu.map((item) => (
@@ -155,15 +156,15 @@ const Sidebar = ({ closeSidebar }) => {
               items-center
               gap-4
               rounded-2xl
-              px-4
-              py-3.5
+              px-3.5
+              py-3
               transition-all
-              duration-300
+              duration-200
 
               ${
                 isActive
-                  ? "bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white shadow-xl shadow-indigo-500/30"
-                  : "text-slate-700 hover:bg-gradient-to-r hover:from-violet-100 hover:via-indigo-100 hover:to-cyan-100 hover:text-indigo-700 dark:text-slate-300 dark:hover:from-violet-900/40 dark:hover:via-indigo-900/40 dark:hover:to-cyan-900/40 dark:hover:text-cyan-300"
+                  ? "bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 text-white shadow-xl shadow-cyan-500/20"
+                  : "text-slate-700 hover:bg-slate-950/[0.04] hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/[0.07] dark:hover:text-white"
                               }
             `
             }
@@ -183,19 +184,19 @@ const Sidebar = ({ closeSidebar }) => {
                   justify-center
                   rounded-xl
                   transition-all
-                  duration-300
+                  duration-200
 
                   ${
                     isActive
                       ? "bg-white/20"
-                      : "bg-slate-200 text-slate-700 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-indigo-600 group-hover:text-white dark:bg-slate-800 dark:text-slate-300 dark:group-hover:from-violet-600 dark:group-hover:to-indigo-600"
+                      : "bg-slate-100 text-slate-600 group-hover:bg-white group-hover:text-cyan-600 dark:bg-white/[0.06] dark:text-slate-300 dark:group-hover:bg-white/[0.1] dark:group-hover:text-cyan-300"
                                       }
                 `}
                 >
                   {item.icon}
                 </div>
 
-                <span className="font-medium tracking-wide">
+                <span className="font-medium">
                   {item.name}
                 </span>
               </>
@@ -206,7 +207,7 @@ const Sidebar = ({ closeSidebar }) => {
 
       {/* Logout */}
 
-      <div className="border-t border-slate-200 p-5 dark:border-slate-800">
+      <div className="border-t border-slate-200/70 p-4 dark:border-white/10">
 
         <button
           onClick={handleLogout}
@@ -216,13 +217,13 @@ const Sidebar = ({ closeSidebar }) => {
           items-center
           justify-center
           gap-3
-          rounded-2xl
+          rounded-xl
           bg-red-50
           py-3.5
           font-semibold
           text-red-600
           transition-all
-          duration-300
+          duration-200
           hover:bg-red-600
           hover:text-white
           hover:shadow-lg

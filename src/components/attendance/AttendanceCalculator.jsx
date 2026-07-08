@@ -8,7 +8,7 @@ function AttendanceCalculator({ attendance }) {
       return {
         percentage: 0,
         message: "No classes recorded yet.",
-        color: "text-gray-500",
+        color: "text-slate-500 dark:text-slate-400",
       };
     }
 
@@ -26,8 +26,8 @@ function AttendanceCalculator({ attendance }) {
 
       return {
         percentage: percentage.toFixed(1),
-        message: `Attend next ${x} consecutive classes to reach ${subject.minimumAttendance}%.`,
-        color: "text-red-600",
+        message: `Attend the next ${x} consecutive classes to reach ${subject.minimumAttendance}% attendance.`,
+        color: "text-red-600 dark:text-red-400",
       };
     }
 
@@ -42,56 +42,65 @@ function AttendanceCalculator({ attendance }) {
 
     return {
       percentage: percentage.toFixed(1),
-      message: `You can safely miss ${x} classes.`,
-      color: "text-green-600",
+      message: `You can safely miss ${x} more classes.`,
+      color: "text-green-600 dark:text-green-400",
     };
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 mt-8">
+    <div className="premium-card mt-8 p-6">
 
-      <h2 className="text-2xl font-bold mb-6">
+      <h2 className="mb-6 text-2xl font-bold text-slate-900 dark:text-white">
         Attendance Calculator
       </h2>
 
       <div className="space-y-5">
 
         {attendance.map((subject) => {
-
-          const result =
-            calculate(subject);
+          const result = calculate(subject);
 
           return (
-
             <div
               key={subject._id}
-              className="border rounded-xl p-5"
+              className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-slate-700 dark:bg-slate-800/60"
             >
+              <div className="flex items-center justify-between">
 
-              <div className="flex justify-between">
-
-                <h3 className="font-semibold text-lg">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   {subject.subject}
                 </h3>
 
                 <span
-                  className={`font-bold ${result.color}`}
+                  className={`text-lg font-extrabold ${result.color}`}
                 >
                   {result.percentage}%
                 </span>
 
               </div>
 
+              <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+
+                <div
+                  className={`h-full rounded-full transition-all duration-500 ${
+                    Number(result.percentage) >=
+                    subject.minimumAttendance
+                      ? "bg-green-500"
+                      : "bg-red-500"
+                  }`}
+                  style={{
+                    width: `${result.percentage}%`,
+                  }}
+                />
+
+              </div>
+
               <p
-                className={`mt-2 ${result.color}`}
+                className={`mt-4 text-sm font-medium ${result.color}`}
               >
                 {result.message}
               </p>
-
             </div>
-
           );
-
         })}
 
       </div>

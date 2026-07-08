@@ -15,19 +15,14 @@ function DashboardCard({
         group
         relative
         overflow-hidden
-        rounded-3xl
-        border
-        border-slate-200
-        bg-white/80
+        premium-card
         p-6
-        backdrop-blur-xl
         transition-all
-        duration-300
-        hover:-translate-y-2
+        duration-200
+        hover:-translate-y-1
+        hover:border-cyan-300/70
         hover:shadow-2xl
-        hover:shadow-indigo-500/10
-        dark:border-slate-800
-        dark:bg-slate-900/80
+        hover:shadow-cyan-500/10
       "
       >
         {/* Background Glow */}
@@ -43,10 +38,10 @@ function DashboardCard({
           bg-gradient-to-br
           ${color}
           opacity-10
-          blur-3xl
+          blur-2xl
           transition
           duration-500
-          group-hover:opacity-20
+          group-hover:opacity-25
         `}
         />
 
@@ -66,12 +61,13 @@ function DashboardCard({
             text-2xl
             text-white
             shadow-lg
+            shadow-slate-950/10
           `}
           >
             {icon}
           </div>
 
-          <div className="flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">
+          <div className="flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
             <TrendingUp size={14} />
             +12%
           </div>
@@ -80,11 +76,11 @@ function DashboardCard({
         {/* Content */}
 
         <div className="relative mt-8">
-          <p className="text-sm font-medium uppercase tracking-widest text-slate-500 dark:text-slate-400">
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
             {title}
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-white">
+          <h2 className="mt-2 text-4xl font-bold tracking-tight text-slate-950 dark:text-white">
             {value}
           </h2>
 
@@ -95,7 +91,7 @@ function DashboardCard({
 
         {/* Footer */}
 
-        <div className="relative mt-8 flex items-center justify-between border-t border-slate-200 pt-4 dark:border-slate-800">
+        <div className="relative mt-8 flex items-center justify-between border-t border-slate-200/80 pt-4 dark:border-white/10">
           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
             Open Module
           </span>

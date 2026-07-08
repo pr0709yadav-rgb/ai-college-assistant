@@ -21,8 +21,7 @@ function AddSubjectModal({
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]:
-        e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -44,24 +43,19 @@ function AddSubjectModal({
       });
 
       setOpen(false);
-
     } catch (error) {
-
       console.log(error);
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 px-4">
 
-      <div className="bg-white rounded-2xl p-6 w-full max-w-lg">
+      <div className="w-full max-w-lg rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-2xl p-6 transition-colors">
 
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Add Subject
         </h2>
 
@@ -70,9 +64,11 @@ function AddSubjectModal({
           className="space-y-5"
         >
 
+          {/* Semester */}
+
           <div>
 
-            <label className="font-medium block mb-2">
+            <label className="block mb-2 font-medium text-gray-700 dark:text-slate-300">
               Semester
             </label>
 
@@ -80,25 +76,48 @@ function AddSubjectModal({
               name="semester"
               value={formData.semester}
               onChange={handleChange}
-              className="w-full border rounded-lg p-3"
+              className="
+                w-full
+                rounded-lg
+                border
+                border-gray-300
+                dark:border-slate-600
+
+                bg-gray-50
+                dark:bg-slate-700
+
+                text-gray-900
+                dark:text-white
+
+                p-3
+
+                outline-none
+
+                focus:border-cyan-500
+                focus:ring-2
+                focus:ring-cyan-500/20
+
+                transition-all
+              "
             >
-              {[1,2,3,4,5,6,7,8].map(
-                (sem)=>(
-                  <option
-                    key={sem}
-                    value={sem}
-                  >
-                    Semester {sem}
-                  </option>
-                )
-              )}
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
+                <option
+                  key={sem}
+                  value={sem}
+                  className="bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                >
+                  Semester {sem}
+                </option>
+              ))}
             </select>
 
           </div>
 
+          {/* Subject */}
+
           <div>
 
-            <label className="font-medium block mb-2">
+            <label className="block mb-2 font-medium text-gray-700 dark:text-slate-300">
               Subject
             </label>
 
@@ -108,15 +127,42 @@ function AddSubjectModal({
               value={formData.subject}
               onChange={handleChange}
               placeholder="DBMS"
-              className="w-full border rounded-lg p-3"
               required
+              className="
+                w-full
+                rounded-lg
+                border
+                border-gray-300
+                dark:border-slate-600
+
+                bg-gray-50
+                dark:bg-slate-700
+
+                text-gray-900
+                dark:text-white
+
+                placeholder:text-gray-500
+                dark:placeholder:text-slate-400
+
+                p-3
+
+                outline-none
+
+                focus:border-cyan-500
+                focus:ring-2
+                focus:ring-cyan-500/20
+
+                transition-all
+              "
             />
 
           </div>
 
+          {/* Faculty */}
+
           <div>
 
-            <label className="font-medium block mb-2">
+            <label className="block mb-2 font-medium text-gray-700 dark:text-slate-300">
               Faculty
             </label>
 
@@ -126,37 +172,99 @@ function AddSubjectModal({
               value={formData.faculty}
               onChange={handleChange}
               placeholder="Faculty Name"
-              className="w-full border rounded-lg p-3"
+              className="
+                w-full
+                rounded-lg
+                border
+                border-gray-300
+                dark:border-slate-600
+
+                bg-gray-50
+                dark:bg-slate-700
+
+                text-gray-900
+                dark:text-white
+
+                placeholder:text-gray-500
+                dark:placeholder:text-slate-400
+
+                p-3
+
+                outline-none
+
+                focus:border-cyan-500
+                focus:ring-2
+                focus:ring-cyan-500/20
+
+                transition-all
+              "
             />
 
           </div>
 
+          {/* Minimum Attendance */}
+
           <div>
 
-            <label className="font-medium block mb-2">
+            <label className="block mb-2 font-medium text-gray-700 dark:text-slate-300">
               Minimum Attendance
             </label>
 
             <input
               type="number"
               name="minimumAttendance"
-              value={
-                formData.minimumAttendance
-              }
+              value={formData.minimumAttendance}
               onChange={handleChange}
-              className="w-full border rounded-lg p-3"
+              className="
+                w-full
+                rounded-lg
+                border
+                border-gray-300
+                dark:border-slate-600
+
+                bg-gray-50
+                dark:bg-slate-700
+
+                text-gray-900
+                dark:text-white
+
+                p-3
+
+                outline-none
+
+                focus:border-cyan-500
+                focus:ring-2
+                focus:ring-cyan-500/20
+
+                transition-all
+              "
             />
 
           </div>
+
+          {/* Buttons */}
 
           <div className="flex justify-end gap-3 pt-4">
 
             <button
               type="button"
-              onClick={() =>
-                setOpen(false)
-              }
-              className="px-5 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+              onClick={() => setOpen(false)}
+              className="
+                px-5
+                py-2.5
+                rounded-lg
+
+                bg-gray-200
+                dark:bg-slate-700
+
+                text-gray-800
+                dark:text-white
+
+                hover:bg-gray-300
+                dark:hover:bg-slate-600
+
+                transition-all
+              "
             >
               Cancel
             </button>
@@ -164,11 +272,21 @@ function AddSubjectModal({
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+              className="
+                px-6
+                py-2.5
+                rounded-lg
+
+                bg-cyan-500
+                hover:bg-cyan-600
+
+                text-white
+                font-medium
+
+                transition-all
+              "
             >
-              {loading
-                ? "Adding..."
-                : "Add Subject"}
+              {loading ? "Adding..." : "Add Subject"}
             </button>
 
           </div>

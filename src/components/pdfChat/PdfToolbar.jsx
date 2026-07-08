@@ -47,7 +47,7 @@ const PdfToolbar = ({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-2xl px-6 py-4 shadow-xl">
+    <div className="surface rounded-2xl px-5 py-4">
 
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
@@ -69,36 +69,19 @@ const PdfToolbar = ({
                 setSearchTerm(e.target.value)
               }
               placeholder="Search your PDFs..."
-              className="
-                w-full
-                sm:w-80
-                rounded-xl
-                bg-slate-950
-                border
-                border-slate-700
-                py-3
-                pl-11
-                pr-4
-                text-white
-                placeholder:text-slate-500
-                outline-none
-                transition
-                focus:border-cyan-500
-                focus:ring-2
-                focus:ring-cyan-500/20
-              "
+              className="premium-input w-full pl-11 sm:w-80"
             />
 
           </div>
 
-          <div className="flex items-center gap-2 rounded-xl bg-slate-800 px-4 py-3">
+          <div className="flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-3 dark:bg-white/[0.06]">
 
             <FileText
               size={18}
               className="text-cyan-400"
             />
 
-            <span className="text-sm text-slate-300">
+            <span className="text-sm text-slate-600 dark:text-slate-300">
               {pdfs.length} Document{pdfs.length !== 1 && "s"}
             </span>
 
@@ -120,11 +103,11 @@ const PdfToolbar = ({
 
               <div>
 
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Selected PDF
                 </p>
 
-                <p className="max-w-[220px] truncate text-sm font-medium text-white">
+                <p className="max-w-[220px] truncate text-sm font-medium text-slate-900 dark:text-white">
                   {selectedPdf.originalName}
                 </p>
 
@@ -140,12 +123,17 @@ const PdfToolbar = ({
               items-center
               gap-2
               rounded-xl
-              bg-slate-800
+              bg-slate-100
               px-4
               py-3
-              text-white
-              transition
-              hover:bg-cyan-600
+              text-slate-700
+              transition-all
+              hover:-translate-y-0.5
+              hover:bg-slate-950
+              hover:text-white
+              dark:bg-white/[0.06]
+              dark:text-white
+              dark:hover:bg-white/[0.12]
             "
           >
             <RefreshCw size={18} />
@@ -168,7 +156,8 @@ const PdfToolbar = ({
               px-4
               py-3
               text-white
-              transition
+              transition-all
+              hover:-translate-y-0.5
               hover:bg-red-700
               disabled:cursor-not-allowed
               disabled:opacity-50

@@ -2,87 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth Theme Transition */
-* {
-  @apply transition-colors duration-300;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-slate-50 text-slate-900 antialiased font-medium
+      dark:bg-[#090d16] dark:text-white;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  ::selection {
+    @apply bg-cyan-400/25 text-cyan-900 dark:text-cyan-100;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-full border-2 border-transparent bg-slate-300 bg-clip-padding dark:bg-slate-700;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-600;
+  }
 }
 
-/* =========================
-   App Background
-========================= */
+@layer components {
+  .app-bg {
+    @apply bg-slate-50 dark:bg-[#090d16];
+  }
 
-.app-bg {
-  @apply bg-slate-100 dark:bg-slate-950;
-}
+  .surface {
+    @apply border border-slate-200 bg-white backdrop-blur-2xl
+      dark:border-slate-700 dark:bg-slate-900;
+  }
 
-/* =========================
-   Glass Navbar
-========================= */
+  .surface-muted {
+    @apply border border-slate-200 bg-slate-50
+      dark:border-slate-700 dark:bg-slate-800;
+  }
 
-.navbar-bg {
-  @apply bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl;
-}
+  .premium-card {
+    @apply surface rounded-2xl shadow-xl;
+  }
 
-/* =========================
-   Sidebar
-========================= */
+  .premium-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl
+      bg-slate-900 px-4 py-3 text-sm font-semibold text-white
+      shadow-lg transition-all duration-200
+      hover:-translate-y-0.5 hover:shadow-xl
+      disabled:cursor-not-allowed disabled:opacity-60
+      dark:bg-white dark:text-slate-900;
+  }
 
-.sidebar-bg {
-  @apply bg-white dark:bg-slate-900;
-}
+  .premium-button-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl
+      bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500
+      px-4 py-3 text-sm font-semibold text-white
+      shadow-lg transition-all duration-200
+      hover:-translate-y-0.5 hover:shadow-xl
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
 
-/* =========================
-   Cards
-========================= */
+  .premium-input {
+    @apply w-full rounded-xl border border-slate-300
+      bg-white px-4 py-3 text-sm font-medium text-slate-900
+      placeholder:text-slate-500 outline-none
+      focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20
+      dark:border-slate-700 dark:bg-slate-900
+      dark:text-white dark:placeholder:text-slate-400;
+  }
 
-.card-bg {
-  @apply bg-white dark:bg-slate-900;
-}
+  .text-primary {
+    @apply font-semibold text-slate-900 dark:text-white;
+  }
 
-.card-border {
-  @apply border border-slate-200 dark:border-white/10;
-}
+  .text-secondary {
+    @apply font-medium text-slate-700 dark:text-slate-300;
+  }
 
-/* =========================
-   Buttons
-========================= */
+  .card-title {
+    @apply text-xl font-bold text-slate-900 dark:text-white;
+  }
 
-.btn-bg {
-  @apply bg-slate-100 dark:bg-slate-800/60;
-}
+  .section-title {
+    @apply text-2xl font-bold text-slate-900 dark:text-white;
+  }
 
-.btn-hover {
-  @apply hover:bg-slate-200 dark:hover:bg-slate-700;
-}
+  .page-title {
+    @apply text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white;
+  }
 
-/* =========================
-   Inputs
-========================= */
+  .body-text {
+    @apply text-base font-medium text-slate-800 dark:text-slate-200;
+  }
 
-.input-bg {
-  @apply bg-white dark:bg-slate-800;
-}
+  .muted-text {
+    @apply text-slate-600 dark:text-slate-400;
+  }
 
-.input-border {
-  @apply border border-slate-300 dark:border-white/10;
-}
+  .sidebar-item {
+    @apply font-medium text-slate-800 dark:text-slate-200;
+  }
 
-/* =========================
-   Text
-========================= */
-
-.text-primary {
-  @apply text-slate-900 dark:text-white;
-}
-
-.text-secondary {
-  @apply text-slate-600 dark:text-slate-400;
-}
-
-/* =========================
-   Accent
-========================= */
-
-.accent {
-  @apply text-indigo-600 dark:text-indigo-400;
+  .accent {
+    @apply font-semibold text-cyan-600 dark:text-cyan-300;
+  }
 }

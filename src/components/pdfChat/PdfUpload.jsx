@@ -69,29 +69,18 @@ const PdfUpload = ({
   };
 
   return (
-    <div className="flex h-full flex-col bg-slate-900">
+    <div className="flex h-full flex-col bg-transparent">
 
       {/* Upload Section */}
 
-      <div className="border-b border-slate-700 p-5">
+      <div className="border-b border-slate-200/80 p-5 dark:border-white/10">
 
         <button
           onClick={handleChooseFile}
           disabled={loading}
           className="
             w-full
-            rounded-xl
-            bg-gradient-to-r
-            from-cyan-500
-            to-blue-600
-            py-3
-            text-white
-            font-semibold
-            shadow-lg
-            transition
-            hover:scale-[1.02]
-            active:scale-95
-            disabled:opacity-60
+            premium-button-primary
           "
         >
           {loading ? (
@@ -118,7 +107,7 @@ const PdfUpload = ({
           onChange={handleUpload}
         />
 
-        <div className="mt-4 flex items-center gap-2 rounded-xl bg-slate-800 p-3">
+        <div className="mt-4 flex items-center gap-3 rounded-xl bg-slate-100 p-3 dark:bg-white/[0.06]">
 
           <Files
             size={18}
@@ -127,11 +116,11 @@ const PdfUpload = ({
 
           <div>
 
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Total Documents
             </p>
 
-            <h3 className="font-bold text-white">
+            <h3 className="font-bold text-slate-950 dark:text-white">
               {pdfs.length}
             </h3>
 
@@ -146,18 +135,18 @@ const PdfUpload = ({
       <div className="flex-1 overflow-y-auto p-3 space-y-3">
 
         {filteredPdfs.length === 0 ? (
-          <div className="mt-16 flex flex-col items-center">
+          <div className="mt-16 flex flex-col items-center px-4 text-center">
 
             <FileText
               size={60}
-              className="text-slate-600"
+              className="text-slate-300 dark:text-slate-600"
             />
 
-            <h3 className="mt-4 font-semibold text-white">
+            <h3 className="mt-4 font-semibold text-slate-950 dark:text-white">
               No PDFs Yet
             </h3>
 
-            <p className="mt-2 text-center text-sm text-slate-400">
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Upload your first PDF to start
               chatting with AI.
             </p>
@@ -180,15 +169,15 @@ const PdfUpload = ({
                 duration-300
                 ${
                   selectedPdf?._id === pdf._id
-                    ? "border-cyan-500 bg-cyan-500/10 shadow-lg shadow-cyan-500/20"
-                    : "border-slate-700 bg-slate-800 hover:border-cyan-500 hover:bg-slate-750"
+                    ? "border-cyan-400 bg-cyan-500/10 shadow-lg shadow-cyan-500/15"
+                    : "border-slate-200/80 bg-white/65 hover:border-cyan-300 hover:bg-white dark:border-white/10 dark:bg-white/[0.045] dark:hover:bg-white/[0.07]"
                 }
               `}
             >
 
               <div className="flex items-start gap-3">
 
-                <div className="rounded-xl bg-cyan-500/20 p-3">
+                <div className="rounded-xl bg-cyan-500/10 p-3">
 
                   <FileText
                     size={20}
@@ -199,11 +188,11 @@ const PdfUpload = ({
 
                 <div className="min-w-0 flex-1">
 
-                  <h4 className="truncate font-semibold text-white">
+                  <h4 className="truncate font-semibold text-slate-900 dark:text-white">
                     {pdf.originalName}
                   </h4>
 
-                  <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+                  <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
 
                     <Calendar size={14} />
 
@@ -226,7 +215,7 @@ const PdfUpload = ({
       {/* Dashboard Button */}
 {/* Dashboard Button */}
 
-    <div className="border-t border-slate-700 px-4 pt-3 pb-10">
+    <div className="border-t border-slate-200/80 px-4 pb-10 pt-3 dark:border-white/10">
 
       <button
         onClick={() => navigate("/dashboard")}
@@ -237,14 +226,18 @@ const PdfUpload = ({
           justify-center
           gap-2
           rounded-xl
-          bg-slate-800
+          bg-slate-100
           px-4
           py-3
-          text-white
+          font-semibold
+          text-slate-700
           transition-all
           duration-300
-          hover:bg-cyan-600
-          hover:scale-[1.02]
+          hover:bg-slate-950
+          hover:text-white
+          dark:bg-white/[0.07]
+          dark:text-white
+          dark:hover:bg-white/[0.12]
         "
       >
         <Home size={18} />

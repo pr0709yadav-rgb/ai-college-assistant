@@ -50,14 +50,8 @@ function RecentActivity({ activity = [] }) {
   return (
     <div
       className="
-      rounded-3xl
-      border
-      border-slate-200
-      bg-slate-50
+      premium-card
       p-5
-      shadow-sm
-      dark:border-slate-800
-      dark:bg-slate-900/80
     "
     >
       {/* Header */}
@@ -78,18 +72,19 @@ function RecentActivity({ activity = [] }) {
             onClick={() => setShowAll(!showAll)}
             className="
             rounded-xl
-            bg-slate-200
+            bg-slate-100
             px-4
             py-2
             text-sm
             font-medium
             text-slate-700
-            transition
-            hover:bg-indigo-500
+            transition-all
+            hover:-translate-y-0.5
+            hover:bg-slate-950
             hover:text-white
-            dark:bg-slate-800
+            dark:bg-white/[0.07]
             dark:text-white
-            dark:hover:bg-indigo-600
+            dark:hover:bg-white/[0.12]
           "
           >
             {showAll ? "Show Less" : "View All"}
@@ -100,14 +95,16 @@ function RecentActivity({ activity = [] }) {
       {activity.length === 0 ? (
         <div
           className="
-          rounded-2xl
+          rounded-xl
           border
           border-dashed
           border-slate-300
-          py-8
+          bg-white/60
+          py-10
           text-center
           text-slate-500
           dark:border-slate-700
+          dark:bg-white/[0.03]
           dark:text-slate-400
         "
         >
@@ -118,7 +115,7 @@ function RecentActivity({ activity = [] }) {
 
           {/* Timeline */}
 
-          <div className="absolute left-5 top-0 bottom-0 w-px bg-slate-300 dark:bg-slate-700" />
+          <div className="absolute bottom-0 left-5 top-0 w-px bg-slate-200 dark:bg-white/10" />
 
           <div className="space-y-4">
 
@@ -158,18 +155,19 @@ function RecentActivity({ activity = [] }) {
                   <div
                     className="
                     flex-1
-                    rounded-2xl
+                    rounded-xl
                     border
-                    border-slate-200
-                    bg-white
+                    border-slate-200/80
+                    bg-white/80
                     px-4
                     py-3
                     transition-all
-                    duration-300
-                    hover:border-indigo-400
+                    duration-200
+                    hover:-translate-y-0.5
+                    hover:border-cyan-300
                     hover:shadow-md
-                    dark:border-slate-700
-                    dark:bg-slate-800
+                    dark:border-white/10
+                    dark:bg-white/[0.05]
                   "
                   >
                     <div className="flex items-center justify-between">

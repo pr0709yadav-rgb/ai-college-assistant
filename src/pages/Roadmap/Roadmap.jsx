@@ -19,63 +19,36 @@ import {
 
 function Roadmap() {
   const [goal, setGoal] = useState("");
-
-  const [level, setLevel] =
-    useState("Beginner");
-
-  const [duration, setDuration] =
-    useState("3 Months");
-
-  const [roadmap, setRoadmap] =
-    useState([]);
-
-  const [savedRoadmaps, setSavedRoadmaps] =
-    useState([]);
-
-  const [loading, setLoading] =
-    useState(false);
-
-  // ==============================
-  // Generate AI Roadmap
-  // ==============================
+  const [level, setLevel] = useState("Beginner");
+  const [duration, setDuration] = useState("3 Months");
+  const [roadmap, setRoadmap] = useState([]);
+  const [savedRoadmaps, setSavedRoadmaps] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const generate = async () => {
     if (!goal) {
-      return alert(
-        "Please select a goal."
-      );
+      return alert("Please select a goal.");
     }
 
     try {
       setLoading(true);
 
-      const data =
-        await generateRoadmap({
-          goal,
-          level,
-          duration,
-        });
+      const data = await generateRoadmap({
+        goal,
+        level,
+        duration,
+      });
 
       setRoadmap(data.roadmap);
-
     } catch (error) {
-
       console.log(error);
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
-  // ==============================
-  // Save Roadmap
-  // ==============================
-
   const save = async () => {
     try {
-
       await saveRoadmap({
         goal,
         level,
@@ -83,55 +56,30 @@ function Roadmap() {
         roadmap,
       });
 
-      alert(
-        "Roadmap Saved Successfully!"
-      );
+      alert("Roadmap Saved Successfully!");
 
       loadRoadmaps();
-
     } catch (error) {
-
       console.log(error);
-
     }
   };
-
-  // ==============================
-  // Load Saved Roadmaps
-  // ==============================
 
   const loadRoadmaps = async () => {
     try {
+      const data = await getRoadmaps();
 
-      const data =
-        await getRoadmaps();
-
-      setSavedRoadmaps(
-        data.roadmaps
-      );
-
+      setSavedRoadmaps(data.roadmaps);
     } catch (error) {
-
       console.log(error);
-
     }
   };
 
-  // ==============================
-  // Delete Roadmap
-  // ==============================
-
   const removeRoadmap = async (id) => {
     try {
-
       await deleteRoadmap(id);
-
       loadRoadmaps();
-
     } catch (error) {
-
       console.log(error);
-
     }
   };
 
@@ -141,14 +89,13 @@ function Roadmap() {
 
   return (
     <DashboardLayout>
-
-      <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="min-h-screen p-6 bg-gray-100 dark:bg-slate-900 transition-colors duration-300">
 
         <RoadmapHeader />
 
         {/* Generator */}
 
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-6 mt-6">
+        <div className="mt-6 rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl p-6 transition-all">
 
           <GoalSelector
             goal={goal}
@@ -168,104 +115,163 @@ function Roadmap() {
           <button
             onClick={generate}
             disabled={loading}
-            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold shadow-lg transition duration-300"
+            className="
+              w-full
+              mt-6
+
+              rounded-xl
+
+              bg-cyan-500
+              hover:bg-cyan-600
+
+              text-white
+              font-semibold
+
+              py-3
+
+              shadow-lg
+              shadow-cyan-500/20
+
+              transition-all
+              duration-300
+
+              hover:-translate-y-0.5
+            "
           >
-            {loading
-              ? "Generating..."
-              : "Generate AI Roadmap"}
+            {loading ? "Generating..." : "Generate AI Roadmap"}
           </button>
 
         </div>
 
         {/* AI Output */}
 
-        <RoadmapOutput
-          roadmap={roadmap}
-        />
+        <RoadmapOutput roadmap={roadmap} />
 
         {/* Progress */}
 
-        <ProgressTracker
-          roadmap={roadmap}
-        />
+        <ProgressTracker roadmap={roadmap} />
 
         {/* Buttons */}
 
         {roadmap.length > 0 && (
-
-          <div className="flex gap-4 mt-8">
+          <div className="flex flex-wrap gap-4 mt-8">
 
             <button
               onClick={save}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl"
+              className="
+                px-6
+                py-3
+                rounded-xl
+
+                bg-green-600
+                hover:bg-green-700
+
+                text-white
+
+                transition-all
+              "
             >
               Save Roadmap
             </button>
 
-            <ExportRoadmap
-              roadmap={roadmap}
-            />
+            <ExportRoadmap roadmap={roadmap} />
 
           </div>
-
         )}
 
         {/* Saved Roadmaps */}
 
         <div className="mt-12">
 
-          <h2 className="text-2xl font-bold mb-5">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-5">
             Saved Roadmaps
           </h2>
 
           {savedRoadmaps.length === 0 ? (
 
-            <div className="bg-white rounded-xl shadow p-6 text-center text-gray-500">
+            <div className="
+              rounded-xl
+              border
+              border-gray-200
+              dark:border-slate-700
 
+              bg-white
+              dark:bg-slate-800
+
+              shadow-lg
+
+              p-6
+
+              text-center
+
+              text-gray-500
+              dark:text-slate-400
+            ">
               No Roadmaps Saved
-
             </div>
 
           ) : (
 
             <div className="space-y-4">
 
-              {savedRoadmaps.map(
-                (item) => (
+              {savedRoadmaps.map((item) => (
 
-                  <div
-                    key={item._id}
-                    className="bg-white rounded-xl shadow p-5 flex justify-between items-center"
-                  >
+                <div
+                  key={item._id}
+                  className="
+                    flex
+                    justify-between
+                    items-center
 
-                    <div>
+                    rounded-xl
 
-                      <h3 className="font-bold text-lg">
-                        {item.goal}
-                      </h3>
+                    border
+                    border-gray-200
+                    dark:border-slate-700
 
-                      <p className="text-gray-500">
-                        {item.level} •{" "}
-                        {item.duration}
-                      </p>
+                    bg-white
+                    dark:bg-slate-800
 
-                    </div>
+                    shadow-lg
 
-                    <button
-                      onClick={() =>
-                        removeRoadmap(
-                          item._id
-                        )
-                      }
-                      className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg"
-                    >
-                      Delete
-                    </button>
+                    p-5
+                  "
+                >
+
+                  <div>
+
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                      {item.goal}
+                    </h3>
+
+                    <p className="text-gray-600 dark:text-slate-400">
+                      {item.level} • {item.duration}
+                    </p>
 
                   </div>
 
-                )
-              )}
+                  <button
+                    onClick={() => removeRoadmap(item._id)}
+                    className="
+                      px-5
+                      py-2
+
+                      rounded-lg
+
+                      bg-red-600
+                      hover:bg-red-700
+
+                      text-white
+
+                      transition-all
+                    "
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              ))}
 
             </div>
 
@@ -274,7 +280,6 @@ function Roadmap() {
         </div>
 
       </div>
-
     </DashboardLayout>
   );
 }
